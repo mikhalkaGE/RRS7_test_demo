@@ -17,6 +17,21 @@ jobs:
       - name: Run the Docker container
         run: docker run saucedemo_ci
 
+      - name: Install Allure
+        run: |
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz
+          sudo tar -zxvf allure-2.23.1.tgz -C /opt/
+          sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
+
+      - name: Generate Allure Results
+        run: allure generate --clean -o allure-results
+
+      - name: Archive Allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results
+
   allure-report:
     runs-on: ubuntu-latest
     needs: build
@@ -31,9 +46,14 @@ jobs:
           sudo tar -zxvf allure-2.23.1.tgz -C /opt/
           sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
 
+      - name: Download Allure results
+        uses: actions/download-artifact@v3
+        with:
+          name: allure-results
+
       - name: Generate Allure Report
         run: |
-          allure generate allure-results -o allure-report
+          allure generate -c allure-results -o allure-report
 
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
