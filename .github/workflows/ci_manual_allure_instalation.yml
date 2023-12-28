@@ -26,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
-          path: allure-results
+          path: demo/allure-results
 
   allure-report:
     runs-on: ubuntu-latest
@@ -44,8 +44,8 @@ jobs:
 
       - name: Download Allure results
         uses: actions/download-artifact@v3
-        # with:
-        #   name: allure-results
+        with:
+          name: allure-results
 
       - name: Generate Allure Report
         run: |
@@ -55,5 +55,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ALLURE_REPORT_TOKEN }}
-          publish_dir: allure-report
+          publish_dir: _site
           publish_branch: gh-pages
