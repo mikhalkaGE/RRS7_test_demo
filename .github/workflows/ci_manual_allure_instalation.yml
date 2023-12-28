@@ -1,4 +1,4 @@
-name: Run tests manual with install allure
+name: Run tests manual with copy from docker
 
 on:
   workflow_dispatch:
@@ -15,9 +15,8 @@ jobs:
         run: docker build -t saucedemo_ci .
 
       - name: Run the Docker container
-        run: |
-          docker run saucedemo_ci
-          docker cp saucedemo_ci:/demo/allure-results .
+        run: docker run --name saucedemo_ci -v $(pwd)/allure-results:/demo/allure-results saucedemo_ci
+
 
       # - name: Generate Allure Results
       #   if: ${{ always() || failure() }}
