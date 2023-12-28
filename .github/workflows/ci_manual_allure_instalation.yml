@@ -17,16 +17,9 @@ jobs:
       - name: Run the Docker container
         run: docker run saucedemo_ci
 
-      - name: Install Allure
-        if: ${{ always() || failure() }}
-        run: |
-          sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz
-          sudo tar -zxvf allure-2.23.1.tgz -C /opt/
-          sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
-
       - name: Generate Allure Results
         if: ${{ always() || failure() }}
-        run: allure generate --clean -o allure-results
+        run: allure generate --clean -o _site
 
       - name: Archive Allure results
         if: ${{ always() || failure() }}
@@ -45,9 +38,9 @@ jobs:
 
       - name: Install Allure
         run: |
-          sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz
-          sudo tar -zxvf allure-2.23.1.tgz -C /opt/
-          sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
+          sudo tar -zxvf allure-2.25.0.tgz -C /opt/
+          sudo ln -s /opt/allure-2.25.0/bin/allure /usr/bin/allure
 
       - name: Download Allure results
         uses: actions/download-artifact@v3
@@ -56,7 +49,7 @@ jobs:
 
       - name: Generate Allure Report
         run: |
-          allure generate -c allure-results -o allure-report
+          allure generate -c allure-results -o _site
 
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

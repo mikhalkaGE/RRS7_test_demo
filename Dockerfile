@@ -67,4 +67,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /demo
 
 # Запускаем проект 
-CMD ["pytest", "-s", "-v"]
+CMD ["pytest", "-s", "-v", "alluredir=allure-results"]
