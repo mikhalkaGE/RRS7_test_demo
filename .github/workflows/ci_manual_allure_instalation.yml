@@ -11,12 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Allure
-        run: |
-          sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz
-          sudo tar -zxvf allure-2.23.1.tgz -C /opt/
-          sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
-
       - name: Build the Docker image
         run: docker build -t saucedemo_ci .
 
@@ -30,6 +24,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install Allure
+        run: |
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz
+          sudo tar -zxvf allure-2.23.1.tgz -C /opt/
+          sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
 
       - name: Generate Allure Report
         run: |
