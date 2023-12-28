@@ -18,15 +18,18 @@ jobs:
         run: docker run saucedemo_ci
 
       - name: Install Allure
+        if: ${{ always() || failure() }}
         run: |
           sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz
           sudo tar -zxvf allure-2.23.1.tgz -C /opt/
           sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
 
       - name: Generate Allure Results
+        if: ${{ always() || failure() }}
         run: allure generate --clean -o allure-results
 
       - name: Archive Allure results
+        if: ${{ always() || failure() }}
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
