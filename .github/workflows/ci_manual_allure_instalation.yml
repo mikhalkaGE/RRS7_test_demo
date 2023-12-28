@@ -17,9 +17,9 @@ jobs:
       - name: Run the Docker container
         run: docker run saucedemo_ci
 
-      - name: Generate Allure Results
-        if: ${{ always() || failure() }}
-        run: allure generate --clean -o _site
+      # - name: Generate Allure Results
+      #   if: ${{ always() || failure() }}
+      #   run: allure generate --clean -o _site
 
       - name: Archive Allure results
         if: ${{ always() || failure() }}
