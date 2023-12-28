@@ -18,6 +18,7 @@ jobs:
         run: docker run --name saucedemo_ci -v $(pwd)/allure-results:/demo/allure-results saucedemo_ci
 
       - name: Debug - List contents of allure-results
+        if: ${{ always() || failure() }}
         run: ls -R allure-results
 
       # - name: Generate Allure Results
