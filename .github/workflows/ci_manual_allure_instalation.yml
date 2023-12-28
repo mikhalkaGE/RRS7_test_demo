@@ -44,8 +44,8 @@ jobs:
 
       - name: Download Allure results
         uses: actions/download-artifact@v3
-        with:
-          name: allure-results
+        # with:
+        #   name: allure-results
 
       - name: Generate Allure Report
         run: |
