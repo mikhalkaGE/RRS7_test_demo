@@ -15,9 +15,8 @@ jobs:
         run: docker build -t saucedemo_ci .
 
       - name: Run the Docker container
-        # run: docker run saucedemo_ci
-        run: docker run -v $(pwd)/allure-results:/ allure-results saucedemo_ci
-
+        run: docker run saucedemo_ci
+        run: docker cp saucedemo_ci:/demo/allure-results .
 
       # - name: Generate Allure Results
       #   if: ${{ always() || failure() }}
