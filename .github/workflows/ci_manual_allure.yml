@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
@@ -32,7 +32,7 @@ jobs:
         allure_report: allure-report
         allure_history: allure-results/history
         keep_reports: 20
-        alluredoc_repo: ${{ github.repository }}
+        alluredoc_repo: https://github.com/${{ github.repository }}
         gh_token: ${{ secrets.ALLURE_REPORT_TOKEN }}
 
     - name: Deploy report to GitHub Pages
