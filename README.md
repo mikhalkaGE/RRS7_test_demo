@@ -10,8 +10,8 @@ docker run -it mikhalkage/saucedemo:01
 ```
 
 # GitHub Actions 
-1. https://github.com/mikhalkaGE/RRS7_test_demo/actions
-2. Select Actions workflow:
+1. Repository Actions tab (https://github.com/mikhalkaGE/RRS7_test_demo/actions)
+2. Select Actions workflow (left menu):
     - Run tests manual
     - Run tests manual with allure report
 3. Run workflow (dropdown) from Branch: main
