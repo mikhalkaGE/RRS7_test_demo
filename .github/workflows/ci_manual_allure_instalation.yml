@@ -35,7 +35,7 @@ jobs:
   allure-report:
     runs-on: ubuntu-latest
     needs: build
-    if: always()
+    if: ${{ always() || failure() }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -48,8 +48,8 @@ jobs:
 
       - name: Download Allure results
         uses: actions/download-artifact@v3
-        with:
-          name: allure-results
+        # with:
+        #   name: allure-results
 
       - name: Generate Allure Report
         run: |
