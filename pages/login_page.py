@@ -16,3 +16,4 @@ class LoginPage(BasePage):
     
     def validation_error(self):
         return self.driver.find_element(*self._validation_error)
+

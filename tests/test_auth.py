@@ -20,16 +20,19 @@ def login_page(driver):
 class TestAuth:
 
     def test_login_form(self, base_page, login_page, inventory_page):
-
         base_page.open_browser(AuthData.BASE_URL)
         login_page.login(AuthData.LOGIN, AuthData.PASSWORD)
         time.sleep(2)
         assert inventory_page.driver.current_url == f'{AuthData.BASE_URL}/inventory.html'
 
-    def test_login_form_validation(self, base_page, login_page):
-
+    @pytest.mark.parametrize("username, password, error", [
+        (AuthData.INVALID_LOGIN[0], AuthData.INVALID_PASSWORD[0], AuthData.AUTH_ERROR[0]),
+        (AuthData.INVALID_LOGIN[1], AuthData.INVALID_PASSWORD[1], AuthData.AUTH_ERROR[1])
+        ])
+    def test_login_form_validation(self, base_page, login_page, username, password, error):
         base_page.open_browser(AuthData.BASE_URL)
-        login_page.login(AuthData.INVALID_LOGIN, AuthData.INVALID_PASSWORD)
+        login_page.login(username, password)
         time.sleep(2)
         assert login_page.validation_error().is_displayed(), 'Validation error is not presented!'
-        assert AuthData.AUTH_ERROR in login_page.validation_error().text
+        assert error in login_page.validation_error().text
+        
